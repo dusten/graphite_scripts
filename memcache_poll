@@ -16,7 +16,7 @@ do
 
   old_IFS=$IFS
   IFS=$'\n'
-  lines=`echo "stats" | nc localhost 11211 | awk -v HOSTNAME=$HOSTNAME '/STAT/ && ! /pid|version|pointer| time/ {printf ("co.sfmc.us1.stag2.%s.memcache.stats.%s %d %d\n",HOSTNAME,$2,$3,systime())}'`
+  lines=`echo "stats" | nc localhost 11211 | awk -v HOSTNAME=$HOSTNAME '/STAT/ && ! /pid|version|pointer| time/ {printf ("%s.memcache.stats.%s %d %d\n",HOSTNAME,$2,$3,systime())}'`
   
   for line in $lines
   do
