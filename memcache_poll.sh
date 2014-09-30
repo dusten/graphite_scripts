@@ -11,9 +11,6 @@ GRAPHITE_PORT=2003
 # Loop forever
 while :
 do
-  # Get epoch
-  DATE=`date +%s`
-
   old_IFS=$IFS
   IFS=$'\n'
   lines=`echo "stats" | nc localhost 11211 | awk -v HOSTNAME=$HOSTNAME '/STAT/ && ! /pid|version|pointer| time/ {printf ("%s.memcache.stats.%s %d %d\n",HOSTNAME,$2,$3,systime())}'`
@@ -27,4 +24,3 @@ do
 
   sleep 15
 done
-
